@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petrer Explora</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<style>
+/* Reseteo de márgenes, relleno y box-sizing para todos los elementos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Contenedor del fondo de píxeles */
+.pixel-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Estilo para cada píxel */
+.pixel {
+    position: left;
+    width: 3px;
+    height: 3px;
+    background: lime;
+    opacity: 0;
+    animation: explode 3s ease-out infinite;
+}
+
+/* Definición de la animación de explosión */
+@keyframes explode {
+    0% {
+        opacity: 1;
+        transform: scale(1) translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(5) translate(var(--x), var(--y));
+    }
+}
+
+/* Estilos generales del body */
+body {
+    font-family: 'Press Start 2P', cursive;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Estilos del encabezado */
+header {
+    background-color: black;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #00ff00;
+}
+
+/* Estilos del logo en la navegación */
+nav .logo {
+    font-size: 1.8rem;
+}
+
+/* Estilos de las redes sociales */
+.social-media {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en múltiples líneas */
+}
+
+.social-media img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.social-media img:hover {
+    transform: scale(1.2);
+}
+
+/* Estilos del main */
+main {
+    flex: 1;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+/* Estilos de las secciones */
+section {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 800px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: 2px solid #00ff00;
+}
+
+/* Efecto hover en las secciones */
+section:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 16px rgba(0, 0, 0, 0.7);
+}
+
+/* Estilos del contenido de las secciones */
+section .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Estilos de las imágenes dentro del contenido */
+section .content img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    border: 2px solid #00ff00;
+}
+
+/* Estilos de los encabezados h2 */
+h2 {
+    color: #00ff00;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #00ff00;
+    padding-bottom: 0.5rem;
+    position: relative;
+    animation: glitch 3s infinite;
+}
+
+/* Definición de la animación de glitch */
+@keyframes glitch {
+    2%, 64% {
+        text-shadow: 0 0 5px #05f02d;
+    }
+    4%, 60% {
+        text-shadow: 0 0 4px #e100ff;
+    }
+    6%, 58% {
+        text-shadow: 5 0 0px #05f02d;
+    }
+    8%, 56% {
+        text-shadow: 0 0 5px #c300ff;
+    }
+    10%, 54% {
+        text-shadow: 0 0 5px #05f02d;
+    }
+}
+
+/* Pseudo-elemento antes de h2 */
+h2::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 50px;
+    height: 4px;
+    background-color: #00cc00;
+    border-radius: 2px;
+}
+/*estilo del titulillo*/
+h3 {
+            font-size: 1rem; /* Tamaño de fuente */
+            margin-bottom: 0.5rem; /* Espacio inferior */
+            padding: 1rem; /* Espaciado interno */
+            font-family: 'Press Start 2P', cursive;
+            line-height: 1.5; /* Ajusta la altura de la línea */
+            text-align: center; /* Centra el texto horizontalmente */
+        }
+/* Estilos de los párrafos */
+p {
+    line-height: 1.6;
+    color: #c0c0c0;
+}
+
+/* Estilos de los artículos del blog */
+.blog article {
+    background-color: rgba(0, 0, 0, 0);
+    margin: 1rem 0;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: 2px solid #00ff00;
+}
+
+/* Efecto hover en los artículos del blog */
+.blog article:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 50px 50px rgba(0, 0, 0, 0.7);
+}
+
+/* Estilos de los encabezados h3 en el blog */
+.blog article h3 {
+    color: #00cc00;
+    margin-bottom: 0.5rem;
+}
+
+/* Estilos de las imágenes en el blog */
+.blog article img {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    border: 2px solid #00ff00;
+}
+
+/* Estilos de los párrafos en el blog */
+.blog article p {
+    color: #c0c0c0;
+}
+
+/* Estilos del botón de inicio */
+.start-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #00dd00;
+    color: #fff;
+    font-size: 32px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Efecto hover en el botón de inicio */
+.start-button:hover {
+    background-color: #5c005f;
+}
+
+/* Efecto active en el botón de inicio */
+.start-button:active {
+    background-color: #c41bd4;
+}
+
+/* Estilos del pie de página */
+footer {
+    background-color: #000;
+    color: #00ff00;
+    text-align: center;
+    padding: 1rem;
+    border-top: 2px solid #00ff00;
+}
+
+/* Selector de idiomas */
+.language-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en múltiples líneas */
+    margin-bottom: 1rem;
+}
+
+/* Estilos de las imágenes en el selector de idiomas */
+.language-selector img {
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+/* Efecto hover en las imágenes del selector de idiomas */
+.language-selector img:hover {
+    transform: scale(1.2);
+}
+
+
+
+/* Diseño responsivo para pantallas pequeñas */
+@media (max-width: 600px) {
+    nav .logo {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    main {
+        padding: 1rem;
+    }
+
+    section {
+        padding: 1rem;
+    }
+
+    .blog article {
+        padding: 1rem;
+    }
+
+    .social-media {
+        gap: 0.5rem;
+    }
+
+    .social-media img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .language-selector img {
+        width: 25px;
+        height: 25px;
+        margin: 5px;
+    }
+
+    .start-button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+</style>
+
+
+
+<body>
+    <div class="pixel-container"></div>
+    <header>
+        <nav>
+            <div class="logo">Petrer Explora</div>
+            </nav>
+            <div class="social-media">
+                <a href="https://www.facebook.com" target="_blank">
+                    <img src="img/facebook-logo.png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com" target="_blank">
+                    <img src="img/INSTAGRAMER.png" alt="Instagram">
+                </a>
+            </div>
+        
+    </header>
+
+    <main>
+           <section id="settings" class="follow">
+            <h2>...</h2>
+            <div class="language-selector">
+                <a  href="es/home_es.html">
+                    <img src="img/es.png" alt="español" title="Español"  >
+                </a>
+                <a  href="va/home_va.html">
+                    <img src="img/va.png" alt="Valencia" title="Valencia">
+                </a>    
+                <a  href="en/home_en.html">
+                    <img src="img/en.png" alt="English" title="English">
+                </a>
+                <a  href="de/home_de.html">    
+                    <img src="img/de.png" alt="Deutsch" title="Deutsch">
+                </a>
+            </div>
+            <div class="content">
+            <img src="img/guiaintro.jpg" alt="intro">
+            <a href="es/home_es.html" class="start-button">¡Empezar<span>!</span></a>
+            </div>
+        </section>
+        
+       </main>
+       <!-- -->
+        
+    <footer>
+        <p>&copy; 2024 Petrer Explora</p>
+    </footer>
+    <script>
+        const numPixels = 1000; // Número de píxeles que se generarán
+
+        for (let i = 0; i < numPixels; i++) {
+            // Crear un elemento div para cada píxel
+            const pixel = document.createElement('div');
+            pixel.classList.add('pixel'); // Añadir la clase 'pixel' al elemento
+            document.querySelector('.pixel-container').appendChild(pixel); // Añadir el píxel al contenedor de píxeles
+
+            // Posición inicial aleatoria en la pantalla
+            const startX = Math.random() * window.innerWidth;
+            const startY = Math.random() * window.innerHeight;
+
+            // Desplazamiento aleatorio para la animación
+            const endX = (Math.random() - 0.5) * 200; // Desplazamiento horizontal
+            const endY = (Math.random() - 0.5) * 200; // Desplazamiento vertical
+
+            // Establecer la posición inicial del píxel
+            pixel.style.left = `${startX}px`;
+            pixel.style.top = `${startY}px`;
+
+            // Establecer variables CSS personalizadas para el desplazamiento
+            pixel.style.setProperty('--x', `${endX}px`);
+            pixel.style.setProperty('--y', `${endY}px`);
+
+            // Añadir un retraso aleatorio a la animación
+            pixel.style.animationDelay = `${Math.random() * 3}s`;
+        }
+
+
+    </script>
+</body>
+</html>
